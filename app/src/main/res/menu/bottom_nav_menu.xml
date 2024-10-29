@@ -8,12 +8,13 @@
         />
 
     <item
+    android:id="@+id/decks"
+    android:icon="@drawable/baseline_settings_24"
+    android:title="Meus Decks" />
+    
+    <item
     android:id="@+id/profile"
     android:icon="@drawable/baseline_person_24"
     android:title="Profile"/>
 
-    <item
-    android:id="@+id/settings"
-    android:icon="@drawable/baseline_settings_24"
-    android:title="Settings" />
 </menu>

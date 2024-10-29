@@ -2,17 +2,16 @@ package com.example.ventz;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.ventz.databinding.ActivityMainBinding;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,18 +28,22 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.main;
         setContentView(view);
 
+        replaceFragment(new HomeFragment());
+
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.home) {
                 replaceFragment(new HomeFragment());
             } else if (itemId == R.id.profile) {
                 replaceFragment(new ProfileFragment());
-            } else if (itemId == R.id.settings) {
-                replaceFragment(new SettingsFragment());
+            } else if (itemId == R.id.decks) {
+                replaceFragment(new DecksFragment());
             }
 
             return true;
         });
+
+        
 
 
 
