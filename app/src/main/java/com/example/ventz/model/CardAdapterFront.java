@@ -27,20 +27,16 @@ public class CardAdapterFront extends ArrayAdapter<Card> {
 
         if (view == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
-            view = inflater.inflate(R.layout.item_card_front, parent, false); // Substitua pelo layout correto do item do Card
+            view = inflater.inflate(R.layout.item_card_front, parent, false); // Replace with the correct layout for the Card item
         }
 
         Card card = getItem(position);
 
         if (card != null) {
-            TextView perguntaTextView = view.findViewById(R.id.pergunta); // Certifique-se de que esses IDs correspondam ao layout
-
-
+            TextView perguntaTextView = view.findViewById(R.id.pergunta); // Ensure these IDs match your layout
             perguntaTextView.setText(card.getPergunta());
-
         }
 
         return view;
     }
 }
-

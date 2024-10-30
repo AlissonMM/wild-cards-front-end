@@ -1,5 +1,6 @@
 package com.example.ventz;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.ventz.model.Deck;
@@ -65,7 +67,8 @@ public class DecksFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
+// Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_decks, container, false);
 
         // Initialize ListView using the inflated view
@@ -74,11 +77,21 @@ public class DecksFragment extends Fragment {
         // Mock data for testing
         List<Deck> mockDeck = new ArrayList<>();
         mockDeck.add(new Deck(1, "Meu Pequeno Deck", 1));
-        mockDeck.add(new Deck(2, "Meu gramde dick", 3));
+        mockDeck.add(new Deck(2, "Meu Grande Deck", 3));
 
         // Set up the adapter with mock data
         DeckAdapter adapter = new DeckAdapter(getContext(), mockDeck);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Use getContext() to get the context of the fragment
+                Intent intent = new Intent(getContext(), DeckTela.class);
+                // Add extras if needed, e.g., intent.putExtra("key", value);
+                startActivity(intent);
+            }
+        });
 
         return view; // Return the view for this fragment
     }

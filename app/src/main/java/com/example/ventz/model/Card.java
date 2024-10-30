@@ -8,12 +8,12 @@ public class Card {
     private int idDeckFk;
     private String acertou;
 
-    // Construtor padrão que inicializa com valores padrão
+    // Construtor padrÃ£o que inicializa com valores padrÃ£o
     public Card() {
-        this.idCard = 0; // ou você pode usar um valor padrão apropriado
+        this.idCard = 0; // ou vocÃª pode usar um valor padrÃ£o apropriado
         this.pergunta = ""; // inicializa como string vazia
         this.resposta = ""; // inicializa como string vazia
-        this.idDeckFk = 0; // ou outro valor padrão
+        this.idDeckFk = 0; // ou outro valor padrÃ£o
         this.acertou = ""; // inicializa como string vazia
     }
 
@@ -26,7 +26,7 @@ public class Card {
         this.acertou = acertou;
     }
 
-    // Construtor para conversão para o banco de dados local
+    // Construtor para conversï¿½o para o banco de dados local
     public Card(int idCard, String pergunta, String resposta, int idDeckFk) {
             this.idCard = idCard;
             this.pergunta = pergunta;
