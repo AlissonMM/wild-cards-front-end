@@ -1,16 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:backgroundTint="#FFFFFF"
     tools:context=".DecksFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F6590F"
-        android:text="SETTINGS FRAGMENT"
+        android:background="#FFFFFF"
+        android:gravity="center|top"
+        android:paddingTop="22dp"
+        android:text="Meus Decks"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="22dp"  />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="100dp"
+        android:background="#FFFFFF"
+
+
+        android:divider="@android:color/transparent"
+        android:dividerHeight="16dp"
+
+
         />
 
-</FrameLayout>
+
+</RelativeLayout>

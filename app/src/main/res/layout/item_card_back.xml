@@ -22,7 +22,7 @@
 
 
     <TextView
-        android:id="@+id/nome"
+        android:id="@+id/resposta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
@@ -30,13 +30,6 @@
 
         />
 
-    <TextView
-        android:id="@+id/id_usuario_fk_id_usuario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textColor="@color/white"
-        />
 
 
 </LinearLayout>

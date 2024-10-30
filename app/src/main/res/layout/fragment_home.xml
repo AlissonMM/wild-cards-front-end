@@ -11,22 +11,31 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#392E45"
+        android:background="#FFFFFF"
         android:gravity="center|top"
         android:paddingTop="22dp"
         android:text="Decks da Comunidade"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginBottom="22dp"  />
 
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:background="#392E45"
-        android:divider="#392E45"
-        android:dividerHeight="20dp" />
+
+
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="100dp"
+        android:background="#FFFFFF"
+
+
+        android:divider="@android:color/transparent"
+        android:dividerHeight="16dp"
+
+
+        />
 
 
 </RelativeLayout>

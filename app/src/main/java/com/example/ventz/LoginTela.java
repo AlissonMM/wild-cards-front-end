@@ -1,9 +1,9 @@
 package com.example.ventz;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginTela extends AppCompatActivity {
 
+    public static final String CHANNEL_1_ID = "channel1";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

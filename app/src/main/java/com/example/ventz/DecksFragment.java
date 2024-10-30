@@ -7,6 +7,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import com.example.ventz.model.Deck;
+import com.example.ventz.model.DeckAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +66,20 @@ public class DecksFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_decks, container, false);
+        View view = inflater.inflate(R.layout.fragment_decks, container, false);
+
+        // Initialize ListView using the inflated view
+        ListView listView = view.findViewById(R.id.listView);
+
+        // Mock data for testing
+        List<Deck> mockDeck = new ArrayList<>();
+        mockDeck.add(new Deck(1, "Meu Pequeno Deck", 1));
+        mockDeck.add(new Deck(2, "Meu gramde dick", 3));
+
+        // Set up the adapter with mock data
+        DeckAdapter adapter = new DeckAdapter(getContext(), mockDeck);
+        listView.setAdapter(adapter);
+
+        return view; // Return the view for this fragment
     }
 }
