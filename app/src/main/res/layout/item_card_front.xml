@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="240dp"
     android:layout_height="wrap_content"
 
-    android:background="@drawable/rounded_corners"
+    android:background="@drawable/card_list_style_front"
 
     android:orientation="vertical"
 
@@ -17,19 +18,51 @@
 
      android:gravity="center"
 
-    android:padding="16dp">
+    android:padding="16dp"
+
+    android:paddingBottom="30dp"
+    >
 
 
 
-    <TextView
-        android:id="@+id/pergunta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textColor="@color/white"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp">
 
-        />
+        <Button
+            android:id="@+id/myButton"
+            android:layout_width="54dp"
+            android:layout_height="38dp"
+            android:backgroundTint="@android:color/transparent"
+            android:text="x"
+            android:textColor="#E91E63"
+            android:textColorLink="#E91E63"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="-1dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/pergunta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="n/a"
+            android:textColor="@color/black"
+
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="48dp"
+            android:paddingBottom="40dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </LinearLayout>

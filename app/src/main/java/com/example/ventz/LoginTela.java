@@ -2,6 +2,8 @@ package com.example.ventz;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.Button;
 import android.widget.RemoteViews;
 import android.widget.Toast;
@@ -38,5 +40,11 @@ public class LoginTela extends AppCompatActivity {
             finish();
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        return false;
     }
 }

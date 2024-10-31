@@ -12,8 +12,11 @@
         android:label="Wild Cards"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Ventz"
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
         tools:targetApi="31">
+        <activity
+            android:name=".CriarCardTela"
+            android:exported="false" />
         <activity
             android:name=".DeckTela"
             android:exported="false" />

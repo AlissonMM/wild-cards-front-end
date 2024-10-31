@@ -5,12 +5,13 @@
 <!-- Gradiente  -->
     <color name="blue_start">#546DA6</color>
     <color name="blue_end">#3C5C80</color>
+    <color name="blue_card">#85ADDC</color>
 
 
 
 
 
 
-    
+
 
 </resources>
