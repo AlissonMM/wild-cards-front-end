@@ -1,5 +1,7 @@
 package com.example.ventz;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -9,7 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ventz.model.Deck;
 import com.example.ventz.model.DeckAdapter;
@@ -32,6 +39,7 @@ public class DecksFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String nomeDeckString = "";
 
     public DecksFragment() {
         // Required empty public constructor
@@ -56,23 +64,23 @@ public class DecksFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-// Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_decks, container, false);
-
-        // Initialize ListView using the inflated view
         ListView listView = view.findViewById(R.id.listView);
+        ImageButton btnCriarDeck = view.findViewById(R.id.btnCriarDeck);
+
+        // Initialize the Dialog
+        Dialog dialog = new Dialog(DecksFragment.this.getContext());
+        dialog.setContentView(R.layout.deck_dialog_box);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+
+        // Access the buttons from the dialog's content view
+        Button btnCancelar = dialog.findViewById(R.id.btnCancelar);
+        Button btnCriar = dialog.findViewById(R.id.btnCriar);
+        EditText nomeDeck = dialog.findViewById(R.id.textViewNomeDeck);
 
         // Mock data for testing
         List<Deck> mockDeck = new ArrayList<>();
@@ -83,16 +91,50 @@ public class DecksFragment extends Fragment {
         DeckAdapter adapter = new DeckAdapter(getContext(), mockDeck);
         listView.setAdapter(adapter);
 
+
+        btnCriarDeck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+            }
+        });
+
+        btnCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btnCriar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //add a toast with the text `Deck criado com sucesso`
+                nomeDeckString = nomeDeck.getText().toString();
+                Toast.makeText(getContext(), "Deck " + nomeDeckString + " criado com sucesso!", Toast.LENGTH_SHORT).show();
+
+                mockDeck.add(new Deck(69, nomeDeckString, 3));
+
+                adapter.notifyDataSetChanged();
+
+                nomeDeck.setText("");
+                dialog.dismiss();
+
+
+            }
+        });
+
+
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Use getContext() to get the context of the fragment
                 Intent intent = new Intent(getContext(), DeckTela.class);
-                // Add extras if needed, e.g., intent.putExtra("key", value);
                 startActivity(intent);
             }
         });
 
-        return view; // Return the view for this fragment
+        return view;
     }
 }
