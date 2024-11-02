@@ -1,5 +1,6 @@
 package com.example.ventz;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 //         EdgeToEdge.enable(this);
 //        setContentView(R.layout.activity_main);
 //         binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.main;
