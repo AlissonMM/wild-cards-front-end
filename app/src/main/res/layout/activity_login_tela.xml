@@ -8,7 +8,7 @@
     tools:context=".LoginTela">
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/txtEmail"
         android:layout_width="365dp"
         android:layout_height="50dp"
         android:ems="10"
@@ -35,7 +35,7 @@
         app:layout_constraintVertical_bias="0.157" />
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/txtSenha"
         android:layout_width="365dp"
         android:layout_height="53dp"
         android:ems="10"
@@ -61,7 +61,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnCadastrar"
         android:layout_width="359dp"
         android:layout_height="77dp"
         android:backgroundTint="#527BAA"

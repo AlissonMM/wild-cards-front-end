@@ -50,4 +50,7 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(kotlin("script-runtime"))
+
+    implementation(libs.volley)
+
 }
