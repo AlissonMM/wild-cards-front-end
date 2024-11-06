@@ -8,7 +8,7 @@
     tools:context=".CadastroTela">
 
     <Button
-        android:id="@+id/btnVoltar"
+        android:id="@+id/btnTelaCadastro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#00FFFFFF"
@@ -49,7 +49,7 @@
         app:layout_constraintVertical_bias="0.157" />
 
     <Button
-        android:id="@+id/btnCadastrar"
+        android:id="@+id/btnLogin"
         android:layout_width="359dp"
         android:layout_height="77dp"
         android:backgroundTint="#527BAA"

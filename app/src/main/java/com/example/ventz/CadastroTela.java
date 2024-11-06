@@ -3,7 +3,6 @@ package com.example.ventz;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ventz.model.Dados;
@@ -30,8 +28,8 @@ public class CadastroTela extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_cadastro_tela);
 
-        Button btnVoltar = findViewById(R.id.btnVoltar);
-        Button btnCadastrar = findViewById(R.id.btnCadastrar);
+        Button btnVoltar = findViewById(R.id.btnTelaCadastro);
+        Button btnCadastrar = findViewById(R.id.btnLogin);
         EditText txtNome = findViewById(R.id.txtNome);
         EditText txtEmail = findViewById(R.id.txtEmail);
         EditText txtSenha = findViewById(R.id.txtSenha);
@@ -40,7 +38,7 @@ public class CadastroTela extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
 
         // Define a URL base do servidor
-        Dados.getInstance().setUrl("http://ec2-54-233-50-9.sa-east-1.compute.amazonaws.com:8080");
+        Dados.getInstance().setUrl("http://ec2-18-228-151-32.sa-east-1.compute.amazonaws.com:8080");
         url = Dados.getInstance().getUrl() + "/usuarios/inserirUsuario";
 
         // Evento de clique para o botão "Voltar"
@@ -78,15 +76,15 @@ public class CadastroTela extends AppCompatActivity {
                     url,
                     jsonBody,
                     response -> {
-                        // Lógica para resposta de sucesso
+
                     },
                     error -> {
-                        // Lógica para resposta de erro
+                        // Por algum motivo o codigo so funciona assim 🤓👍
                         if (error.networkResponse != null) {
                             String errorMessage = new String(error.networkResponse.data);
                             Toast.makeText(CadastroTela.this, "Error: " + errorMessage, Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(CadastroTela.this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CadastroTela.this, "Usuário Cadastrado!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(CadastroTela.this, LoginTela.class);
                             startActivity(intent);
                             finish();

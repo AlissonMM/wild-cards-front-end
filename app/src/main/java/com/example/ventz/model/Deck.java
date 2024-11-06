@@ -15,11 +15,18 @@ public class Deck {
         this.idDeck = idDeck;
         this.nome = nome;
         this.id_usuario_fk_id_usuario = id_usuario_fk_id_usuario;
+
+
+    }public Deck(String nome, int id_usuario_fk_id_usuario) {
+        this.nome = nome;
+        this.id_usuario_fk_id_usuario = id_usuario_fk_id_usuario;
+    }public Deck(String nome) {
+        this.nome = nome;
     }
 
     @Override
     public String toString() {
-        return "Aluno{" +
+        return "Deck{" +
                 "idDeck=" + idDeck +
                 ", nome='" + nome + '\'' +
                 ", id_usuario_fk_id_usuario=" + id_usuario_fk_id_usuario +

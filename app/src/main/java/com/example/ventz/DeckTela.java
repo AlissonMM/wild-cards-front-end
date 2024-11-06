@@ -6,12 +6,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import android.widget.Button;
+
 import android.widget.Toast;
 import com.example.ventz.model.Card;
 import com.example.ventz.model.CardAdapterFront;
@@ -30,12 +28,14 @@ public class DeckTela extends AppCompatActivity {
         ListView listViewCard = findViewById(R.id.listViewCard);
 
         // Mock data for testing
-        List<Card> mockCard = new ArrayList<>();
-        mockCard.add(new Card(1, "No céu tem pão?", "E morreu", 1));
-        mockCard.add(new Card(2, "O céu tá preto?", "Celta preto", 1));
+        List<Card> cardsList = new ArrayList<>();
+        cardsList.add(new Card(1, "No céu tem pão?", "E morreu", 1));
+        cardsList.add(new Card(2, "O céu tá preto?", "Celta preto", 1));
+
+        // 
 
         // Set up the adapter with mock data
-        CardAdapterFront adapter = new CardAdapterFront(this, mockCard);
+        CardAdapterFront adapter = new CardAdapterFront(this, cardsList);
         listViewCard.setAdapter(adapter);
     }
 

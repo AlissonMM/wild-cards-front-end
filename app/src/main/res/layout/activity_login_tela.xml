@@ -7,6 +7,33 @@
     android:layout_height="match_parent"
     tools:context=".LoginTela">
 
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="249dp"
+        android:layout_height="42dp"
+        android:background="#BCBCBC"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.87" />
+
+    <EditText
+        android:id="@+id/txtUrl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#E91E63"
+        android:backgroundTint="@android:color/transparent"
+        android:ems="10"
+        android:hint="URL-api"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.861" />
+
     <EditText
         android:id="@+id/txtEmail"
         android:layout_width="365dp"
@@ -49,7 +76,7 @@
         app:layout_constraintVertical_bias="0.426" />
 
     <Button
-        android:id="@+id/btnVoltar"
+        android:id="@+id/btnTelaCadastro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#00FFFFFF"
@@ -61,7 +88,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnCadastrar"
+        android:id="@+id/btnLogin"
         android:layout_width="359dp"
         android:layout_height="77dp"
         android:backgroundTint="#527BAA"

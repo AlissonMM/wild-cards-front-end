@@ -14,7 +14,7 @@
         tools:layout_editor_absoluteY="-136dp">
 
         <EditText
-            android:id="@+id/editTextTextMultiLine"
+            android:id="@+id/txtPergunta"
             android:layout_width="386dp"
             android:layout_height="66dp"
             android:ems="10"
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Frente"
-            app:layout_constraintBottom_toTopOf="@+id/editTextTextMultiLine"
+            app:layout_constraintBottom_toTopOf="@+id/txtPergunta"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +53,7 @@
             app:layout_constraintVertical_bias="0.056" />
 
         <EditText
-            android:id="@+id/editTextTextMultiLine2"
+            android:id="@+id/txtResposta"
             android:layout_width="wrap_content"
             android:layout_height="66dp"
             android:width="386dp"
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:text="Verso"
-            app:layout_constraintBottom_toTopOf="@+id/editTextTextMultiLine2"
+            app:layout_constraintBottom_toTopOf="@+id/txtResposta"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
