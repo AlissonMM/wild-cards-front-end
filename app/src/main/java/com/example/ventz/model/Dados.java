@@ -4,6 +4,7 @@ public class Dados {
     private static Dados instance;
     private String url;
     private int idUsuarioLogado;
+    private int idDeckAtual;
 
     private Dados() { }
 
@@ -33,5 +34,13 @@ public class Dados {
 
     public void setIdUsuarioLogado(int idUsuarioLogado) {
         this.idUsuarioLogado = idUsuarioLogado;
+    }
+
+    public int getIdDeckAtual() {
+        return idDeckAtual;
+    }
+
+    public void setIdDeckAtual(int idDeckAtual) {
+        this.idDeckAtual = idDeckAtual;
     }
 }

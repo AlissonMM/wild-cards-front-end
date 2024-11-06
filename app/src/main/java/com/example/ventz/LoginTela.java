@@ -42,7 +42,7 @@ public class LoginTela extends AppCompatActivity {
         EditText txtUrl = findViewById(R.id.txtUrl);
 
 
-        Dados.getInstance().setUrl("http://ec2-18-228-151-32.sa-east-1.compute.amazonaws.com:8080");
+        Dados.getInstance().setUrl("http://ec2-54-233-2-46.sa-east-1.compute.amazonaws.com:8080");
 
         // Botão para ir para a tela de cadastro
         btnCadastro.setOnClickListener(v -> {

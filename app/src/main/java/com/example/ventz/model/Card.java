@@ -33,6 +33,11 @@ public class Card {
             this.resposta = resposta;
             this.idDeckFk = idDeckFk;
             this.acertou = "";
+        } public Card(String pergunta, String resposta, int idDeckFk) {
+            this.pergunta = pergunta;
+            this.resposta = resposta;
+            this.idDeckFk = idDeckFk;
+            this.acertou = "";
         }
 
     // Getters e Setters

@@ -41,7 +41,7 @@ public class CriarCardTela extends AppCompatActivity {
 
 
         // Obter ID do deck atual (o que foi clicado na listView
-        //        int idDeckAtual =
+               int idDeckAtual = Dados.getInstance().getIdDeckAtual();
 
 
 
@@ -52,11 +52,11 @@ public class CriarCardTela extends AppCompatActivity {
             String pergunta = txtPergunta.getText().toString();
             String resposta = txResposta.getText().toString();
 // AQUI AQUI AQUI AQUI
-//            inserirCardNoDeck(pergunta, resposta, idDeckAtual);
+           inserirCardNoDeck(pergunta, resposta, idDeckAtual);
 
 
 
-            Toast.makeText(this, "Carta adicionada!", Toast.LENGTH_SHORT).show();
+//             Toast.makeText(this, "Carta adicionada!", Toast.LENGTH_SHORT).show();
         });
 
         btnVoltar.setOnClickListener(v -> {
@@ -84,7 +84,7 @@ public class CriarCardTela extends AppCompatActivity {
                 Request.Method.POST, // Utilizando o método POST
                 urlInserirCard,
                 jsonBody,
-                response -> Toast.makeText(this, "Card inserido no deck com sucesso!", Toast.LENGTH_SHORT).show(),
+                response -> Toast.makeText(this, "Response inutil 🤓!", Toast.LENGTH_SHORT).show(),
                 error -> {
                     if (error.networkResponse != null) {
                         int statusCode = error.networkResponse.statusCode;
@@ -94,7 +94,7 @@ public class CriarCardTela extends AppCompatActivity {
                             Toast.makeText(this, "Erro ao inserir card no deck. Código: " + statusCode, Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(this, "Erro desconhecido ao inserir card.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Card inserido no deck com sucesso!", Toast.LENGTH_SHORT).show();
                     }
                 }
         );

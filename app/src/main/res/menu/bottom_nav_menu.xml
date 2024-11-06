@@ -8,13 +8,13 @@
         />
 
     <item
-    android:id="@+id/decks"
-    android:icon="@drawable/baseline_settings_24"
-    android:title="Meus Decks" />
-    
+        android:id="@+id/decks"
+        android:icon="@drawable/card_game"
+        android:title="Meus Decks" />
+
     <item
-    android:id="@+id/profile"
-    android:icon="@drawable/baseline_person_24"
-    android:title="Profile"/>
+        android:id="@+id/profile"
+        android:icon="@drawable/baseline_person_24"
+        android:title="Perfil" />
 
 </menu>

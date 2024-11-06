@@ -6,6 +6,7 @@ public class Deck {
 
     private Integer idDeck;
     private String nome;
+    private String nomeCriador;
 //    int qttCartas;
     int id_usuario_fk_id_usuario;
 
@@ -17,7 +18,9 @@ public class Deck {
         this.id_usuario_fk_id_usuario = id_usuario_fk_id_usuario;
 
 
-    }public Deck(String nome, int id_usuario_fk_id_usuario) {
+    }
+
+    public Deck(String nome, int id_usuario_fk_id_usuario) {
         this.nome = nome;
         this.id_usuario_fk_id_usuario = id_usuario_fk_id_usuario;
     }public Deck(String nome) {

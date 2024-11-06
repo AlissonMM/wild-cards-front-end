@@ -28,21 +28,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="20dp">
-
-        <Button
-            android:id="@+id/myButton"
-            android:layout_width="54dp"
-            android:layout_height="38dp"
-            android:backgroundTint="@android:color/transparent"
-            android:text="x"
-            android:textColor="#E91E63"
-            android:textColorLink="#E91E63"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="-1dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_marginBottom="20dp"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

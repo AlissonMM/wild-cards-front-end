@@ -38,7 +38,7 @@ public class CadastroTela extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
 
         // Define a URL base do servidor
-        Dados.getInstance().setUrl("http://ec2-18-228-151-32.sa-east-1.compute.amazonaws.com:8080");
+
         url = Dados.getInstance().getUrl() + "/usuarios/inserirUsuario";
 
         // Evento de clique para o botão "Voltar"

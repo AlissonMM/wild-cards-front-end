@@ -139,7 +139,7 @@ public class DecksFragment extends Fragment {
                                 JSONObject usuarioJson = response.getJSONObject("idUsuarioFk");
                                 int idUsuario = usuarioJson.getInt("idUsuario");
 
-                                Deck deck = new Deck(nomeDeckRe, idUsuario);
+                                Deck deck = new Deck(deckId, nomeDeckRe, idUsuario);
                                 decks.add(deck);
 
                                 Toast.makeText(getContext(), "Carregando decks...", Toast.LENGTH_SHORT).show();
@@ -199,8 +199,7 @@ public class DecksFragment extends Fragment {
                             }
                         } else {
                             Toast.makeText(getContext(), "Deck criado com sucesso!", Toast.LENGTH_SHORT).show();
-                            decks.add(new Deck(nomeDeckString, Dados.getInstance().getIdUsuarioLogado()));
-                            adapter.notifyDataSetChanged();
+
                             nomeDeck.setText("");
                             dialog.dismiss();
                         }
@@ -218,7 +217,10 @@ public class DecksFragment extends Fragment {
                         response -> {
                             try {
                                 idDeckPorNome = response.getInt("idDeck");
-                                Toast.makeText(getContext(), "id Deck encontrado: " + idDeckPorNome, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "id Deck encontrado e criado: " + idDeckPorNome, Toast.LENGTH_SHORT).show();
+
+                                decks.add(new Deck(idDeckPorNome, nomeDeckString, Dados.getInstance().getIdUsuarioLogado()));
+                                adapter.notifyDataSetChanged();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -270,7 +272,9 @@ public class DecksFragment extends Fragment {
 
         listView.setOnItemClickListener((parent, view1, position, id) -> {
             Intent intent = new Intent(getActivity(), DeckTela.class);
-            intent.putExtra("idDeck", decks.get(position).getId_usuario_fk_id_usuario());
+            Dados.getInstance().setIdDeckAtual(decks.get(position).getIdDeck());
+
+            Toast.makeText(getContext(), "Id deck " + Dados.getInstance().getIdDeckAtual(), Toast.LENGTH_SHORT).show();
             startActivity(intent);
         });
 
