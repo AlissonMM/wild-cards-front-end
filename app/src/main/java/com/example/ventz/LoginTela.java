@@ -39,7 +39,7 @@ public class LoginTela extends AppCompatActivity {
         Button btnCadastro = findViewById(R.id.btnTelaCadastro);
         Button btnLogin = findViewById(R.id.btnLogin);
 
-        EditText txtUrl = findViewById(R.id.txtUrl);
+//        EditText txtUrl = findViewById(R.id.txtUrl);
 
 
         Dados.getInstance().setUrl("http://ec2-54-233-2-46.sa-east-1.compute.amazonaws.com:8080");
@@ -55,9 +55,9 @@ public class LoginTela extends AppCompatActivity {
         btnLogin.setOnClickListener(v -> {
             String email = txtEmail.getText().toString();
             String senha = txtSenha.getText().toString();
-            String urlTexto = txtUrl.getText().toString();
+//            String urlTexto = txtUrl.getText().toString();
 
-            if (email.isEmpty() || senha.isEmpty() || urlTexto.isEmpty()) {
+            if (email.isEmpty() || senha.isEmpty()) {
                 Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
                 return;
             }
