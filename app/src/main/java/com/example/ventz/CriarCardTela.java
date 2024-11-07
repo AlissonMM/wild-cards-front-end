@@ -53,6 +53,11 @@ public class CriarCardTela extends AppCompatActivity {
             String resposta = txResposta.getText().toString();
 // AQUI AQUI AQUI AQUI
            inserirCardNoDeck(pergunta, resposta, idDeckAtual);
+            Intent intent = new Intent(CriarCardTela.this, DeckTela.class);
+            startActivity(intent);
+           finish();
+           // go to different scren
+
 
 
 

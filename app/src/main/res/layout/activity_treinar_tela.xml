@@ -32,7 +32,7 @@
                 android:width="240dp"
                 android:height="450dp"
                 android:gravity="center"
-                android:text="e morreu"
+                android:text="carregando verso..."
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
@@ -56,7 +56,7 @@
                 android:width="240dp"
                 android:height="450dp"
                 android:gravity="center"
-                android:text="No céu tem pau"
+                android:text="carregando frente.."
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="18sp" />
@@ -65,7 +65,7 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/buttonAcertei"
+        android:id="@+id/btnAcertou"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/cardMain"
@@ -78,7 +78,7 @@
         android:text="✔" />
 
     <Button
-        android:id="@+id/buttonErrei"
+        android:id="@+id/btnErrou"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/cardMain"

@@ -5,6 +5,7 @@ public class Dados {
     private String url;
     private int idUsuarioLogado;
     private int idDeckAtual;
+    private String nomeDeckAtual;
 
     private Dados() { }
 
@@ -20,12 +21,20 @@ public class Dados {
         Dados.instance = instance;
     }
 
-    public String getUrl() {
-        return url;
+    public String getNomeDeckAtual() {
+        return nomeDeckAtual;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setNomeDeckAtual(String nomeDeckAtual) {
+        this.nomeDeckAtual = nomeDeckAtual;
+    }
+
+    public int getIdDeckAtual() {
+        return idDeckAtual;
+    }
+
+    public void setIdDeckAtual(int idDeckAtual) {
+        this.idDeckAtual = idDeckAtual;
     }
 
     public int getIdUsuarioLogado() {
@@ -36,11 +45,11 @@ public class Dados {
         this.idUsuarioLogado = idUsuarioLogado;
     }
 
-    public int getIdDeckAtual() {
-        return idDeckAtual;
+    public String getUrl() {
+        return url;
     }
 
-    public void setIdDeckAtual(int idDeckAtual) {
-        this.idDeckAtual = idDeckAtual;
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

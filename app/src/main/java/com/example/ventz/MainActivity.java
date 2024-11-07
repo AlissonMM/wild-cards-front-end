@@ -2,15 +2,25 @@ package com.example.ventz;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.ventz.databinding.ActivityMainBinding;
+import com.example.ventz.model.Dados;
+import com.example.ventz.model.Deck;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -32,24 +42,29 @@ public class MainActivity extends AppCompatActivity {
 
         replaceFragment(new HomeFragment());
 
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+        }, 0);
+
+
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.home) {
-                replaceFragment(new HomeFragment());
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    replaceFragment(new HomeFragment());
+                }, 0);
+
             } else if (itemId == R.id.profile) {
-                replaceFragment(new ProfileFragment());
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    replaceFragment(new ProfileFragment());
+                }, 0);
             } else if (itemId == R.id.decks) {
-                replaceFragment(new DecksFragment());
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    replaceFragment(new DecksFragment());
+                }, 0);
             }
 
             return true;
         });
-
-        
-
-
-
-
     }
 
     private void replaceFragment(Fragment fragment) {

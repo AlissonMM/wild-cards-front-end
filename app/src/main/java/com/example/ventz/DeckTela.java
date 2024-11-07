@@ -10,9 +10,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-//import   androidx.activity.EdgeToEdge;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,14 +21,13 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ventz.model.Card;
-
 import com.example.ventz.model.CardAdapterFront;
 import com.example.ventz.model.Dados;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DeckTela extends AppCompatActivity {
 
@@ -40,10 +39,20 @@ public class DeckTela extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_deck_tela);
 
+        TextView qttCards = findViewById(R.id.qttCards);
+        TextView labelNomeDeck = findViewById(R.id.labelNomeDeck);
+
+
         ListView listViewCard = findViewById(R.id.listViewCard);
 
-        // List of cards to display (initially empty)
+        // Lista de cards para exibição (inicialmente vazia)
         List<Card> cardsList = new ArrayList<>();
+
+
+
+
+
+
 
         // Configurar o adaptador e associá-lo ao ListView
         CardAdapterFront adapter = new CardAdapterFront(this, cardsList);
@@ -52,36 +61,57 @@ public class DeckTela extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String urlBuscarCards = Dados.getInstance().getUrl() + "/cards/buscarTodos";
 
-//        StringRequest requestBuscarCards = new StringRequest(
-//                Request.Method.GET,
-//                urlBuscarCards,
-//                response -> {
-//                    try {
-//                        // Use Jackson ObjectMapper to parse JSON
-//                        ObjectMapper mapper = new ObjectMapper();
-//                        List<Card> cards = mapper.readValue(response, new TypeReference<List<Card>>() {});
-//
-//                        // Filter cards by idDeck (assuming Dados.getInstance().getIdDeckAtual() is your current deck ID)
-//                        List<Card> filteredCards = cards.stream()
-//                                .filter(card -> card.getIdDeckFk().getIdDeck() == Dados.getInstance().getIdDeckAtual())
-//                                .collect(Collectors.toList());
-//
-//                        // Update the adapter with filtered cards
-//                        adapter.setCards(filteredCards);
-//                        adapter.notifyDataSetChanged();
-//
-//                    } catch (Exception e) { // Catch various exceptions
-//                        e.printStackTrace();
-//                        Toast.makeText(this, "Erro ao processar a resposta dos cards.", Toast.LENGTH_SHORT).show();
-//                    }
-//                },
-//                error -> {
-//                    Toast.makeText(this, "Erro ao buscar os cards. Verifique a conexão de rede.", Toast.LENGTH_SHORT).show();
-//                }
-//        );
+        // Requisição para buscar os cards
+        StringRequest requestBuscarCards = new StringRequest(
+                Request.Method.GET,
+                urlBuscarCards,
+                response -> {
+                    try {
+                        // Log para ver a resposta da API
+                        Log.d("API Response", response);
+
+                        // Regex para capturar todos os objetos Card no formato 'Card{...}'
+                        Pattern pattern = Pattern.compile("Card\\{([^}]+)\\}");
+                        Matcher matcher = pattern.matcher(response);
+
+                        while (matcher.find()) {
+                            String cardString = matcher.group(1);
+
+                            // Extrair o 'idDeckFk' e o 'nome' do card
+                            int idDeckFk = extractIdDeckFk(cardString);
+                            String perguntaCard = extractPerguntaCard(cardString);
+
+                            // Verificar se o card pertence ao deck atual
+                            if (idDeckFk == Dados.getInstance().getIdDeckAtual()) {
+                                // Adicionar o card à lista filtrada
+                                cardsList.add(new Card(perguntaCard, "", idDeckFk));  // Resposta vazia por enquanto
+                            }
+
+                            // quantity of total items from list view
+                        }
+
+                        // Atualizar o adaptador com os cards filtrados
+
+                        adapter.notifyDataSetChanged();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(this, "Erro ao processar a resposta dos cards.", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> {
+                    Toast.makeText(this, "Erro ao buscar os cards. Verifique a conexão de rede.", Toast.LENGTH_SHORT).show();
+                }
+        );
 
         // Adiciona a requisição à fila de requisições
-//        requestQueue.add(requestBuscarCards);
+        requestQueue.add(requestBuscarCards);
+
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            qttCards.setText("Quantidade de Cards: " + String.valueOf(cardsList.size()));
+
+        }, 3000);
+        labelNomeDeck.setText(Dados.getInstance().getNomeDeckAtual());
 
     }
 
@@ -114,8 +144,40 @@ public class DeckTela extends AppCompatActivity {
         } else if (item.getItemId() == R.id.itemAdicionar) {
             Intent intent = new Intent(this, CriarCardTela.class);
             startActivity(intent);
+            finish();
             return true;
         }
+        else if (item.getItemId() == R.id.itemPraticar) {
+            Intent intent = new Intent(this, TreinarTela.class);
+            startActivity(intent);
+            finish();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    // Método para extrair o 'idDeckFk' de uma string de card
+    private int extractIdDeckFk(String cardString) {
+        int idDeckFk = -1;
+        // Regex para capturar o 'idDeckFk' que está no formato 'idDeckFk=Deck{idDeck=xx,...}'
+        Pattern pattern = Pattern.compile("idDeckFk=Deck\\{idDeck=(\\d+),");
+        Matcher matcher = pattern.matcher(cardString);
+        if (matcher.find()) {
+            idDeckFk = Integer.parseInt(matcher.group(1)); // Captura o 'idDeckFk'
+        }
+        return idDeckFk;
+    }
+
+    // Método para extrair o 'pergunta' do card
+    private String extractPerguntaCard(String cardString) {
+        String perguntaCard = "";
+        // Regex para capturar a 'pergunta' que está no formato 'pergunta='alguma coisa''
+        Pattern pattern = Pattern.compile("pergunta='([^']+)'");
+        Matcher matcher = pattern.matcher(cardString);
+        if (matcher.find()) {
+            perguntaCard = matcher.group(1); // Captura a 'pergunta' do card
+        }
+        return perguntaCard;
     }
 }

@@ -82,6 +82,12 @@ public class DecksFragment extends Fragment {
         // List with Deck IDs
         List<Integer> listaIdDecks = new ArrayList<>();
 
+
+        Toast.makeText(getContext(), "Gerando ideias..~..~..", Toast.LENGTH_SHORT).show();
+
+
+         new Handler(Looper.getMainLooper()).postDelayed(() -> {
+
         // URL to search for the user by ID
         String urlBuscarUsuarioPorId = Dados.getInstance().getUrl() + "/usuarios/buscarPorId/" + Dados.getInstance().getIdUsuarioLogado();
 
@@ -273,11 +279,12 @@ public class DecksFragment extends Fragment {
         listView.setOnItemClickListener((parent, view1, position, id) -> {
             Intent intent = new Intent(getActivity(), DeckTela.class);
             Dados.getInstance().setIdDeckAtual(decks.get(position).getIdDeck());
+            Dados.getInstance().setNomeDeckAtual(decks.get(position).getNome());
 
             Toast.makeText(getContext(), "Id deck " + Dados.getInstance().getIdDeckAtual(), Toast.LENGTH_SHORT).show();
             startActivity(intent);
         });
-
+         }, 0);
         return view;
     }
 }

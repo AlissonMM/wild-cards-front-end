@@ -22,48 +22,24 @@ import com.example.ventz.model.Dados;
 import com.example.ventz.model.Deck;
 import com.example.ventz.model.DeckAdapter;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HomeFragment extends Fragment {
 
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     private RequestQueue requestQueue;
 
-    public HomeFragment() {
-        // Required empty public constructor
-    }
+    public HomeFragment() {}
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -80,63 +56,47 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
-        // Initialize ListView using the inflated view
         ListView listView = view.findViewById(R.id.listView);
 
-
-        // Url buscar todos os decks
         String urlBuscarTodosDecks = Dados.getInstance().getUrl() + "/decks/buscarTodos";
-
-        requestQueue = Volley.newRequestQueue(getContext()); // Inicializa a RequestQueue
+        requestQueue = Volley.newRequestQueue(getContext());
 
         List<Deck> decksList = new ArrayList<>();
-        // Set up the adapter with mock data
         DeckAdapter adapter = new DeckAdapter(getContext(), decksList);
         listView.setAdapter(adapter);
 
-
-
-        // Make the API request using Volley
+        // Requisição para buscar todos os decks
         StringRequest stringRequest = new StringRequest(Request.Method.GET, urlBuscarTodosDecks,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            // Log the response for debugging
                             Log.d("API Response", response);
 
-                            // If the API response is in the format you mentioned (e.g., deck objects inside a string)
-                            // We need to parse the string response that looks like [Deck{idDeck=46, ...}, ...]
+                            // Extrair todos os IDs de decks da resposta
+                            List<Integer> deckIds = extractDeckIds(response);
+                            Log.d("Deck IDs", "IDs dos Decks: " + deckIds);
 
-                            // Regex to extract each Deck object as a string
+                            // Processar cada deck e extrair o 'nome' e 'idUsuarioFk'
                             Pattern pattern = Pattern.compile("Deck\\{[^}]*\\}");
                             Matcher matcher = pattern.matcher(response);
                             while (matcher.find()) {
                                 String deckString = matcher.group();
 
-                                // Extract the 'nome' and 'idUsuarioFk' from the string
                                 String nomeDeck = extractSecondNome(deckString);
                                 int idUsuarioFk = extractIdUsuario(deckString);
+                                int idDeck = extractDeckId(deckString);
 
-                                // Log the extracted information for debugging
                                 Log.d("Deck Info", "Nome do Deck: " + nomeDeck + ", Usuario Criador: " + idUsuarioFk);
 
-                                // Add the extracted deck to the list
-                                decksList.add(new Deck(nomeDeck, idUsuarioFk));
+                                decksList.add(new Deck(idDeck, nomeDeck, idUsuarioFk));
                             }
 
-                            // Notify the adapter that the data has changed
                             adapter.notifyDataSetChanged();
 
                         } catch (Exception e) {
@@ -153,37 +113,81 @@ public class HomeFragment extends Fragment {
 
         requestQueue.add(stringRequest);
 
+        listView.setOnItemClickListener((parent, view1, position, id) -> {
+            Dados.getInstance().setIdDeckAtual(decksList.get(position).getIdDeck());
+
+            JSONObject jsonAssociarDeck = new JSONObject();
+            try {
+                jsonAssociarDeck.put("idUsuarioFk", Dados.getInstance().getIdUsuarioLogado());
+                jsonAssociarDeck.put("idDeckFk", Dados.getInstance().getIdDeckAtual());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            JsonObjectRequest requestAssociarDeck = new JsonObjectRequest(
+                    Request.Method.POST,
+                    Dados.getInstance().getUrl() + "/deckUsuarios/inserir",
+                    jsonAssociarDeck,
+                    response -> Log.d("AssociarDeck", "Associado com sucesso!"),
+                    error -> {
+                        if (error.networkResponse != null) {
+                            int statusCode = error.networkResponse.statusCode;
+                            Toast.makeText(getContext(), "Erro ao associar o deck ao usuário. Código: " + statusCode, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "Deck associado ao Usuario", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+            );
+            requestQueue.add(requestAssociarDeck);
+        });
+
         return view;
     }
 
-    // Helper method to extract the 'nome' from the deck string
+    // Método auxiliar para extrair todos os IDs dos decks
+    private List<Integer> extractDeckIds(String response) {
+        List<Integer> deckIds = new ArrayList<>();
+        Pattern pattern = Pattern.compile("idDeck=(\\d+)");
+        Matcher matcher = pattern.matcher(response);
 
-
-private String extractSecondNome(String response) {
-    String nomeDeck = "";
-    // Padrão para capturar o primeiro 'nome=' após 'Deck{' até o fechamento da chave
-    Pattern nomePattern = Pattern.compile("Deck\\{[^}]*?nome='([^']*)'");
-    Matcher nomeMatcher = nomePattern.matcher(response);
-
-    // Verifica se há um 'nome' no primeiro Deck
-    if (nomeMatcher.find()) {
-        nomeDeck = nomeMatcher.group(1); // Captura o primeiro 'nome'
+        while (matcher.find()) {
+            int deckId = Integer.parseInt(matcher.group(1));
+            deckIds.add(deckId);
+        }
+        return deckIds;
     }
 
-    return "Deck criado por: " + nomeDeck;
-}
+    // Extrai o nome do deck a partir da string do deck
+    private String extractSecondNome(String response) {
+        String nomeDeck = "";
+        Pattern nomePattern = Pattern.compile("Deck\\{[^}]*?nome='([^']*)'");
+        Matcher nomeMatcher = nomePattern.matcher(response);
 
+        if (nomeMatcher.find()) {
+            nomeDeck = nomeMatcher.group(1);
+        }
+        return "Deck criado por: " + nomeDeck;
+    }
 
-
-    // Helper method to extract the 'idUsuario' from the deck string
+    // Extrai o idUsuario do deck
     private int extractIdUsuario(String deckString) {
         int idUsuario = -1;
-        // Pattern to match idUsuario inside the 'Usuario{idUsuario=...' part of the string.
         Pattern idUsuarioPattern = Pattern.compile("idUsuario=(\\d+)");
         Matcher idUsuarioMatcher = idUsuarioPattern.matcher(deckString);
         if (idUsuarioMatcher.find()) {
-            idUsuario = Integer.parseInt(idUsuarioMatcher.group(1)); // Extract the 'idUsuario' value
+            idUsuario = Integer.parseInt(idUsuarioMatcher.group(1));
         }
         return idUsuario;
+    }
+
+    // Extrai o idDeck do deck
+    private int extractDeckId(String deckString) {
+        int idDeck = -1;
+        Pattern idDeckPattern = Pattern.compile("idDeck=(\\d+)");
+        Matcher idDeckMatcher = idDeckPattern.matcher(deckString);
+        if (idDeckMatcher.find()) {
+            idDeck = Integer.parseInt(idDeckMatcher.group(1));
+        }
+        return idDeck;
     }
 }
